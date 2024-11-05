@@ -1,5 +1,6 @@
 import google.generativeai as genai
 import os
+import json
 
 api_key = os.getenv('GENAI_API_KEY')
 
