@@ -1,4 +1,4 @@
-#Now I also need to set up a role to determine whether the questioner and the answerer are going off topic. If they are going off topic (e.g., they start talking about photography techniques, image processing techniques, etc.), they need to remind them and ask them to ask or answer again. The code below is modified by me according to the code above. Help me improve the code below. Please think step by step.
+#No I also need to set up a role to determine whether the questioner and the answerer are going off topic. If they are going off topic (e.g., they start talking about photography techniques, image processing techniques, etc.), they need to remind them and ask them to ask or answer again. The code below is modified by me according to the code above. Help me improve the code below. Please think step by step.
 
 
 import os
