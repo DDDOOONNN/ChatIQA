@@ -421,7 +421,7 @@ def main():
                 f"Responder's Response {cycle}:\n{interaction.get(f'Responder_Response_{cycle}', '')}\n\n"
             )
         
-        final_assessment_prompt += "\nCombine with your previous chat, provide a concise summary of the image quality with the main factors that really affect the quality of this image and then assign a final score and provide a final score between 0 and 100."
+        final_assessment_prompt += "\nCombine with your previous chat, provide a concise summary of the image quality with the main factors that really affect the quality of this image."
 
         final_score_response = send_message_with_retry(
             responder_chat,
@@ -429,7 +429,16 @@ def main():
             role='user',
             inline_image=inline_image
         )
+
+        final_result_prompt = "I need a brief summary of the following assessment result which you have provided.\n\n" + final_score_response
+        final_brief_result = send_message_with_retry(
+            responder_chat,
+            final_result_prompt,
+            role='user',
+            inline_image=inline_image
+        )
         interaction['Final_Score'] = final_score_response
+        interaction['Final_Result'] = final_brief_result
         print(f"\nJudge's Final Assessment and Score for {image_name}:\n{final_score_response}")
         logging.info(f"Judge's Final Assessment and Score for {image_name}:\n{final_score_response}")
 
