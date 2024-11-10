@@ -86,3 +86,5 @@ def send_message_with_retry(chat_session, message, role='user', inline_image=Non
             else:
                 logging.error("All retry attempts failed.")
                 return response
+    
+    time.sleep(2)

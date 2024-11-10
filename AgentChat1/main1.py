@@ -58,9 +58,6 @@ def main():
         logging.critical(f"Error encoding comparison image: {e}")
         raise e
 
-    # Initialize the results list
-    results = []
-
     # Define system messages for Responder, Asker, and Judge
     responder_system_message = (
         "You are an Image Analysis Expert specializing in evaluating the quality of images based on their specific types, such as portraits and landscapes."
@@ -79,25 +76,95 @@ def main():
 
     judge_system_message = (
         "You are a Conversation Moderator.Your task is to monitor the dialogue between the Inquisitive Analyst and the Image Analysis Expert."
-        "Individually evaluate the Inquisitive Analyst's questions and the Image Analysis Expert's answers to ensure they strictly relate to assessing image quality based on this image's quality factors."  
+        "Individually evaluate the Inquisitive Analyst's questions and the Image Analysis Expert's answers to ensure they strictly relate to assessing image quality based on this image's quality factors." 
         "If a question from the Inquisitive Analyst is off-topic, politely remind them to focus on image quality assessment and prompt them to regenerate the question. "
         "Similarly, if an answer from the Image Analysis Expert is off-topic, politely remind them to focus on image quality assessment and prompt them to regenerate the answer."
         "Your remind should start with \"Remind that:\""
     )
 
-    # Iterate through each image with a progress bar
-    for i in tqdm(range(1, total_images + 1), desc="Processing Images"):
-        image_num = i
-        image_name = f'DatabaseImage{str(i).zfill(4)}.jpg'  # Naming as DatabaseImage0001.jpg, etc.
-        image_path = os.path.join(image_dir, image_name)
-        print(f"\nProcessing image: {image_path}")  # Print the image path being processed
+    # Process images in batches
+    for batch_start in range(1, total_images + 1, 50):
+        results = []
+        batch_end = min(batch_start + 49, total_images)
+        for i in tqdm(range(batch_start, batch_end + 1), desc=f"Processing Images {batch_start}-{batch_end}"):
+            image_num = i
+            image_name = f'DatabaseImage{str(i).zfill(4)}.jpg'
+            image_path = os.path.join(image_dir, image_name)
+            print(f"\nProcessing image: {image_path}")
 
-        if not os.path.exists(image_path):
-            logging.warning(f"Image {image_name} does not exist.")
-            results.append({
+            if not os.path.exists(image_path):
+                logging.warning(f"Image {image_name} does not exist.")
+                results.append({
+                    'Image': image_name,
+                    'Responder_Assessment_ComparisonIMG': None,
+                    'Responder_Assessment_CurrentImage': 'Image not found.',
+                    'Asker_Question_1': None,
+                    'Responder_Response_1': None,
+                    'Asker_Question_2': None,
+                    'Responder_Response_2': None,
+                    'Asker_Question_3': None,
+                    'Responder_Response_3': None,
+                    'Asker_Question_4': None,
+                    'Responder_Response_4': None,
+                    'Asker_Question_5': None,
+                    'Responder_Response_5': None,
+                    'Final_Score': None
+                })
+                continue
+
+            try:
+                with Image.open(image_path) as img:
+                    if img.mode != 'RGB':
+                        img = img.convert('RGB')
+                    current_img_data_uri = encode_image(image_path)
+            except Exception as e:
+                logging.error(f"Error opening image {image_name}: {e}")
+                results.append({
+                    'Image': image_name,
+                    'Responder_Assessment_ComparisonIMG': None,
+                    'Responder_Assessment_CurrentImage': f"Error opening image: {e}",
+                    'Asker_Question_1': None,
+                    'Responder_Response_1': None,
+                    'Asker_Question_2': None,
+                    'Responder_Response_2': None,
+                    'Asker_Question_3': None,
+                    'Responder_Response_3': None,
+                    'Asker_Question_4': None,
+                    'Responder_Response_4': None,
+                    'Asker_Question_5': None,
+                    'Responder_Response_5': None,
+                    'Final_Score': None
+                })
+                continue
+
+            try:
+                responder_chat = initialize_chat(model, responder_system_message, role='model')
+                asker_chat = initialize_chat(model, asker_system_message, role='model')
+                judge_chat = initialize_chat(model, judge_system_message, role='model')
+            except Exception as e:
+                logging.error(f"Error initializing chat sessions for image {image_name}: {e}")
+                results.append({
+                    'Image': image_name,
+                    'Responder_Assessment_ComparisonIMG': None,
+                    'Responder_Assessment_CurrentImage': f"Error initializing chat sessions: {e}",
+                    'Asker_Question_1': None,
+                    'Responder_Response_1': None,
+                    'Asker_Question_2': None,
+                    'Responder_Response_2': None,
+                    'Asker_Question_3': None,
+                    'Responder_Response_3': None,
+                    'Asker_Question_4': None,
+                    'Responder_Response_4': None,
+                    'Asker_Question_5': None,
+                    'Responder_Response_5': None,
+                    'Final_Score': None
+                })
+                continue
+
+            interaction = {
                 'Image': image_name,
                 'Responder_Assessment_ComparisonIMG': None,
-                'Responder_Assessment_CurrentImage': 'Image not found.',
+                'Responder_Assessment_CurrentImage': None,
                 'Asker_Question_1': None,
                 'Responder_Response_1': None,
                 'Asker_Question_2': None,
@@ -109,356 +176,218 @@ def main():
                 'Asker_Question_5': None,
                 'Responder_Response_5': None,
                 'Final_Score': None
-            })
-            continue
+            }
 
-        try:
-            # Open and prepare the current image
-            with Image.open(image_path) as img:
-                if img.mode != 'RGB':
-                    img = img.convert('RGB')
-                current_img_data_uri = encode_image(image_path)
-        except Exception as e:
-            logging.error(f"Error opening image {image_name}: {e}")
-            results.append({
-                'Image': image_name,
-                'Responder_Assessment_ComparisonIMG': None,
-                'Responder_Assessment_CurrentImage': f"Error opening image: {e}",
-                'Asker_Question_1': None,
-                'Responder_Response_1': None,
-                'Asker_Question_2': None,
-                'Responder_Response_2': None,
-                'Asker_Question_3': None,
-                'Responder_Response_3': None,
-                'Asker_Question_4': None,
-                'Responder_Response_4': None,
-                'Asker_Question_5': None,
-                'Responder_Response_5': None,
-                'Final_Score': None
-            })
-            continue
-
-        # Initialize chat sessions for Responder, Asker, and Judge
-        try:
-            responder_chat = initialize_chat(model, responder_system_message, role='model')
-            asker_chat = initialize_chat(model, asker_system_message, role='model')
-            judge_chat = initialize_chat(model, judge_system_message, role='model')
-        except Exception as e:
-            logging.error(f"Error initializing chat sessions for image {image_name}: {e}")
-            results.append({
-                'Image': image_name,
-                'Responder_Assessment_ComparisonIMG': None,
-                'Responder_Assessment_CurrentImage': f"Error initializing chat sessions: {e}",
-                'Asker_Question_1': None,
-                'Responder_Response_1': None,
-                'Asker_Question_2': None,
-                'Responder_Response_2': None,
-                'Asker_Question_3': None,
-                'Responder_Response_3': None,
-                'Asker_Question_4': None,
-                'Responder_Response_4': None,
-                'Asker_Question_5': None,
-                'Responder_Response_5': None,
-                'Final_Score': None
-            })
-            continue
-
-        # Initialize dictionaries to hold interactions
-        interaction = {
-            'Image': image_name,
-            'Responder_Assessment_ComparisonIMG': None,
-            'Responder_Assessment_CurrentImage': None,
-            'Asker_Question_1': None,
-            'Responder_Response_1': None,
-            'Asker_Question_2': None,
-            'Responder_Response_2': None,
-            'Asker_Question_3': None,
-            'Responder_Response_3': None,
-            'Asker_Question_4': None,
-            'Responder_Response_4': None,
-            'Asker_Question_5': None,
-            'Responder_Response_5': None,
-            'Final_Score': None
-        }
-
-        # ------------------------------
-        # Cycle 1: Initial Analysis
-        # ------------------------------
-        # Responder analyzes ComparisonIMG
-        comparison_analysis_prompt = (
-            f"Please assess the quality of the following image comprehensively. "
-            f"This image is named {comparison_img_name}, and its score is 54. "
-            f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect."
-        )
-        inline_image_ComparisonIMG = {
-            "mime_type": "image/jpeg",
-            "data": comparison_img_data_uri.split(",")[1]  # Remove the data URI prefix
-        }
-        responder_assessment_comparison = send_message_with_retry(
-            responder_chat, 
-            comparison_analysis_prompt, 
-            role='user',
-            inline_image=inline_image_ComparisonIMG
-        )
-        interaction['Responder_Assessment_ComparisonIMG'] = responder_assessment_comparison
-        print(f"\nResponder's Assessment for {comparison_img_name}:\n{responder_assessment_comparison}")
-        logging.info(f"Responder's Assessment for {comparison_img_name}: {responder_assessment_comparison}")
-
-        # Responder analyzes the Current Image
-        current_image_prompt = (
-            f"Please assess the quality of the following image comprehensively, and based on the ComparisonIMG's score, "
-            f"give this image a score between 0 and 100. "
-            f"This image is named {image_name}. When evaluating, consider both objective factors "
-            f"(such as sharpness, contrast, color accuracy, etc.) and subjective user experience factors "
-            f"(such as aesthetic appeal, emotional impact, etc.). "
-            f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect, "
-            f"ensuring that acceptable quality images are not unduly penalized."
-        )
-        # Prepare inline image data
-        inline_image = {
-            "mime_type": "image/jpeg",
-            "data": current_img_data_uri.split(",")[1]  # Remove the data URI prefix
-        }
-        responder_assessment_current = send_message_with_retry(
-            responder_chat, 
-            current_image_prompt, 
-            role='user', 
-            inline_image=inline_image
-        )
-        interaction['Responder_Assessment_CurrentImage'] = responder_assessment_current
-        print(f"\nResponder's Assessment for {image_name}:\n{responder_assessment_current}")
-        logging.info(f"Responder's Assessment for {image_name}: {responder_assessment_current}")
-
-        # ------------------------------
-        # Cycles 2-6: Question and Answer Rounds with Judge Evaluations
-        # ------------------------------
-        previous_response = responder_assessment_current  # Initialize with the current image assessment
-
-        for cycle in range(1, num_cycles + 1):
             # ------------------------------
-            # Step 1: Asker Generates a Question
+            # Cycle 1: Initial Analysis
             # ------------------------------
-            asker_question_prompt = (
-                f"Based on the following response from the Image Analysis Expert,  generate a thoughtful and insightful question to help the Image Analysis Expert correctly explore what factors really affect the quality of this image\n\n"
-                f"Responder's Response:\n{previous_response}"
+            comparison_analysis_prompt = (
+                f"Please assess the quality of the following image comprehensively. "
+                f"This image is named {comparison_img_name}, and its score is 54. "
+                f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect."
             )
-            asker_question = send_message_with_retry(
-                asker_chat, 
-                asker_question_prompt, 
-                role='user',
-                inline_image=inline_image  # As questions don't include images
-            )
-            interaction[f'Asker_Question_{cycle}'] = asker_question
-            print(f"\nAsker's Question {cycle}:\n{asker_question}")
-            logging.info(f"Asker's Question {cycle}: {asker_question}")
-
-            # ------------------------------
-            # Step 2: Judge Evaluates Asker's Question
-            # ------------------------------
-            judge_evaluate_asker_prompt = (
-                f"Evaluate the following question to determine if it is strictly on topic regarding image quality assessment. "
-                f"Respond with 'on-topic' or 'off-topic'. If 'off-topic', provide a gentle reminder to the Inquisitive Analyst to focus on image quality assessment.Your remind should start with \"Remind that:\"\n\n"
-                f"Asker's Question:\n{asker_question}"
-            )
-            judge_feedback_asker = send_message_with_retry(
-                judge_chat, 
-                judge_evaluate_asker_prompt, 
-                role='user',
-                inline_image=inline_image
-            )
-            print(f"\nJudge's Feedback on Asker's Question {cycle}:\n{judge_feedback_asker}")
-            logging.info(f"Judge's Feedback on Asker's Question {cycle}:\n{judge_feedback_asker}")
-
-            # Check Judge's feedback for Asker's question
-            if re.search(r'\boff-topic\b', judge_feedback_asker, re.IGNORECASE):
-                # Asker's question is off-topic; prompt regeneration
-                # Extract the reminder from Judge's feedback
-                reminder_match = re.search(r'Remind\s+that[^\n]*', judge_feedback_asker, re.IGNORECASE)
-                reminder = reminder_match.group(0) if reminder_match else "Please focus on image quality assessment."
-
-                print(f"\nJudge detected that the Asker went off topic. Prompting Asker to regenerate Question {cycle}.")
-                logging.info(f"Judge detected Asker off-topic in Cycle {cycle}. Prompting regeneration.")
-
-                # Prompt Asker to regenerate the question
-                asker_regenerate_prompt = (
-                    f"{reminder}\n\n"
-                    f"Based on the following response from the Image Analysis Expert, regenerate the question to stay on topic:\n\n"
-                    f"Responder's Response:\n{previous_response}\n\n"
-                )
-                regenerated_asker_question = send_message_with_retry(
-                    asker_chat, 
-                    asker_regenerate_prompt, 
-                    role='user',
-                    inline_image=inline_image
-                )
-                interaction[f'Asker_Question_{cycle}'] = regenerated_asker_question
-                print(f"\nAsker's Regenerated Question {cycle}:\n{regenerated_asker_question}")
-                logging.info(f"Asker's Regenerated Question {cycle}: {regenerated_asker_question}")
-
-                # Re-evaluate the regenerated question
-                judge_feedback_regenerated_asker = send_message_with_retry(
-                    judge_chat, 
-                    judge_evaluate_asker_prompt.replace(asker_question, regenerated_asker_question), 
-                    role='user',
-                    inline_image=inline_image
-                )
-                print(f"\nJudge's Feedback on Regenerated Asker's Question {cycle}:\n{judge_feedback_regenerated_asker}")
-                logging.info(f"Judge's Feedback on Regenerated Asker's Question {cycle}:\n{judge_feedback_regenerated_asker}")
-
-                if re.search(r'\boff-topic\b', judge_feedback_regenerated_asker, re.IGNORECASE):
-                    # Still off-topic after regeneration; skip to next cycle or handle accordingly
-                    print(f"\nAsker's regenerated question is still off-topic. Skipping Cycle {cycle}.")
-                    logging.warning(f"Asker's regenerated question still off-topic in Cycle {cycle}. Skipping.")
-                    continue  # Or implement further handling
-                else:
-                    # Regenerated question is on-topic; proceed
-                    asker_question = regenerated_asker_question
-            else:
-                # Asker's question is on-topic; proceed
-                logging.info(f"Asker's Question {cycle} is on-topic.")
-
-            # ------------------------------
-            # Step 3: Responder Answers the Question
-            # ------------------------------
-
-            asker_question += f"\n\nAfter answer the quastion, please state what you now think are the key factors that really affects the quality of this image {image_name}, and give a brief summary."
-
-            responder_response = send_message_with_retry(
+            inline_image_ComparisonIMG = {
+                "mime_type": "image/jpeg",
+                "data": comparison_img_data_uri.split(",")[1]
+            }
+            responder_assessment_comparison = send_message_with_retry(
                 responder_chat, 
-                asker_question, 
+                comparison_analysis_prompt, 
                 role='user',
-                inline_image=inline_image  # Assuming answers don't include images
+                inline_image=inline_image_ComparisonIMG
             )
-            interaction[f'Responder_Response_{cycle}'] = responder_response
-            print(f"\nResponder's Response {cycle}:\n{responder_response}")
-            logging.info(f"Responder's Response {cycle}: {responder_response}")
+            interaction['Responder_Assessment_ComparisonIMG'] = responder_assessment_comparison
+            logging.info(f"Responder's Assessment for {comparison_img_name}: {responder_assessment_comparison}")
 
-            # ------------------------------
-            # Step 4: Judge Evaluates Responder's Answer
-            # ------------------------------
-            judge_evaluate_responder_prompt = (
-                f"Evaluate the following answer to determine if it is strictly on topic regarding image quality assessment. "
-                f"Respond with 'on-topic' or 'off-topic'. If 'off-topic', provide a gentle reminder to the Image Analysis Expert to focus on image quality assessment.Your remind should start with \"Remind that:\"\n\n"
-                f"Responder's Response:\n{responder_response}"
+            current_image_prompt = (
+                f"Please assess the quality of the following image comprehensively, and based on the ComparisonIMG's score, "
+                f"give this image a score between 0 and 100. "
+                f"This image is named {image_name}. When evaluating, consider both objective factors "
+                f"(such as sharpness, contrast, color accuracy, etc.) and subjective user experience factors "
+                f"(such as aesthetic appeal, emotional impact, etc.). "
+                f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect, "
+                f"ensuring that acceptable quality images are not unduly penalized."
             )
-            judge_feedback_responder = send_message_with_retry(
-                judge_chat, 
-                judge_evaluate_responder_prompt, 
+            inline_image = {
+                "mime_type": "image/jpeg",
+                "data": current_img_data_uri.split(",")[1]
+            }
+            responder_assessment_current = send_message_with_retry(
+                responder_chat, 
+                current_image_prompt, 
+                role='user', 
+                inline_image=inline_image
+            )
+            interaction['Responder_Assessment_CurrentImage'] = responder_assessment_current
+            logging.info(f"Responder's Assessment for {image_name}: {responder_assessment_current}")
+
+            previous_response = responder_assessment_current
+
+            for cycle in range(1, num_cycles + 1):
+                asker_question_prompt = (
+                    f"Based on the following response from the Image Analysis Expert,  generate a thoughtful and insightful question to help the Image Analysis Expert correctly explore what factors really affect the quality of this image\n\n"
+                    f"Responder's Response:\n{previous_response}"
+                )
+                asker_question = send_message_with_retry(
+                    asker_chat, 
+                    asker_question_prompt, 
+                    role='user',
+                    inline_image=inline_image
+                )
+                interaction[f'Asker_Question_{cycle}'] = asker_question
+                logging.info(f"Asker's Question {cycle}: {asker_question}")
+
+                judge_evaluate_asker_prompt = (
+                    f"Evaluate the following question to determine if it is strictly on topic regarding image quality assessment. "
+                    f"Respond with 'on-topic' or 'off-topic'. If 'off-topic', provide a gentle reminder to the Inquisitive Analyst to focus on image quality assessment.Your remind should start with \"Remind that:\"\n\n"
+                    f"Asker's Question:\n{asker_question}"
+                )
+                judge_feedback_asker = send_message_with_retry(
+                    judge_chat, 
+                    judge_evaluate_asker_prompt, 
+                    role='user',
+                    inline_image=inline_image
+                )
+                logging.info(f"Judge's Feedback on Asker's Question {cycle}:\n{judge_feedback_asker}")
+
+                if re.search(r'\boff-topic\b', judge_feedback_asker, re.IGNORECASE):
+                    reminder_match = re.search(r'Remind\s+that[^\n]*', judge_feedback_asker, re.IGNORECASE)
+                    reminder = reminder_match.group(0) if reminder_match else "Please focus on image quality assessment."
+
+                    asker_regenerate_prompt = (
+                        f"{reminder}\n\n"
+                        f"Based on the following response from the Image Analysis Expert, regenerate the question to stay on topic:\n\n"
+                        f"Responder's Response:\n{previous_response}\n\n"
+                    )
+                    regenerated_asker_question = send_message_with_retry(
+                        asker_chat, 
+                        asker_regenerate_prompt, 
+                        role='user',
+                        inline_image=inline_image
+                    )
+                    interaction[f'Asker_Question_{cycle}'] = regenerated_asker_question
+                    logging.info(f"Asker's Regenerated Question {cycle}: {regenerated_asker_question}")
+
+                    judge_feedback_regenerated_asker = send_message_with_retry(
+                        judge_chat, 
+                        judge_evaluate_asker_prompt.replace(asker_question, regenerated_asker_question), 
+                        role='user',
+                        inline_image=inline_image
+                    )
+                    logging.info(f"Judge's Feedback on Regenerated Asker's Question {cycle}:\n{judge_feedback_regenerated_asker}")
+
+                    if re.search(r'\boff-topic\b', judge_feedback_regenerated_asker, re.IGNORECASE):
+                        continue
+                    else:
+                        asker_question = regenerated_asker_question
+                else:
+                    logging.info(f"Asker's Question {cycle} is on-topic.")
+
+                asker_question += f"\n\nAfter answer the question, please state what you now think are the key factors that really affect the quality of this image {image_name}, and give a brief summary."
+
+                responder_response = send_message_with_retry(
+                    responder_chat, 
+                    asker_question, 
+                    role='user',
+                    inline_image=inline_image
+                )
+                interaction[f'Responder_Response_{cycle}'] = responder_response
+                logging.info(f"Responder's Response {cycle}: {responder_response}")
+
+                judge_evaluate_responder_prompt = (
+                    f"Evaluate the following answer to determine if it is strictly on topic regarding image quality assessment. "
+                    f"Respond with 'on-topic' or 'off-topic'. If 'off-topic', provide a gentle reminder to the Image Analysis Expert to focus on image quality assessment.Your remind should start with \"Remind that:\"\n\n"
+                    f"Responder's Response:\n{responder_response}"
+                )
+                judge_feedback_responder = send_message_with_retry(
+                    judge_chat, 
+                    judge_evaluate_responder_prompt, 
+                    role='user',
+                    inline_image=inline_image
+                )
+                logging.info(f"Judge's Feedback on Responder's Response {cycle}:\n{judge_feedback_responder}")
+
+                if re.search(r'\boff-topic\b', judge_feedback_responder, re.IGNORECASE):
+                    reminder_match = re.search(r'Remind\s+that[^\n]*', judge_feedback_responder, re.IGNORECASE)
+                    reminder = reminder_match.group(0) if reminder_match else "Please focus on image quality assessment."
+
+                    responder_regenerate_prompt = (
+                        f"{reminder}\n\n"
+                        f"Based on the following question, regenerate your answer to focus specifically on the key factors affecting the quality of this image:\n\n"
+                        f"Asker's Question {cycle}:\n{asker_question}\n\n"
+                        f"Responder's Original Response:\n{responder_response}"
+                    )
+                    regenerated_responder_response = send_message_with_retry(
+                        responder_chat, 
+                        responder_regenerate_prompt, 
+                        role='user',
+                        inline_image=inline_image
+                    )
+                    interaction[f'Responder_Response_{cycle}'] = regenerated_responder_response
+                    logging.info(f"Responder's Regenerated Response {cycle}: {regenerated_responder_response}")
+
+                    judge_feedback_regenerated_responder = send_message_with_retry(
+                        judge_chat, 
+                        judge_evaluate_responder_prompt.replace(responder_response, regenerated_responder_response), 
+                        role='user',
+                        inline_image=inline_image
+                    )
+                    logging.info(f"Judge's Feedback on Regenerated Responder's Response {cycle}:\n{judge_feedback_regenerated_responder}")
+
+                    if re.search(r'\boff-topic\b', judge_feedback_regenerated_responder, re.IGNORECASE):
+                        continue
+                    else:
+                        responder_response = regenerated_responder_response
+                else:
+                    logging.info(f"Responder's Response {cycle} is on-topic.")
+
+                previous_response = responder_response
+
+            final_assessment_prompt = (
+                f"Conversation History:\n"
+            )
+
+            for cycle in range(1, num_cycles + 1):
+                final_assessment_prompt += (
+                    f"\nAsker's Question {cycle}:\n{interaction.get(f'Asker_Question_{cycle}', '')}\n\n"
+                    f"Responder's Response {cycle}:\n{interaction.get(f'Responder_Response_{cycle}', '')}\n\n"
+                )
+            
+            final_assessment_prompt += "\nCombine with your previous chat, provide a concise summary of the image quality with the main factors that really affect the quality of this image."
+
+            final_score_response = send_message_with_retry(
+                responder_chat,
+                final_assessment_prompt,
                 role='user',
                 inline_image=inline_image
             )
-            print(f"\nJudge's Feedback on Responder's Response {cycle}:\n{judge_feedback_responder}")
-            logging.info(f"Judge's Feedback on Responder's Response {cycle}:\n{judge_feedback_responder}")
 
-            # Check Judge's feedback for Responder's answer
-            if re.search(r'\boff-topic\b', judge_feedback_responder, re.IGNORECASE):
-                # Responder's answer is off-topic; prompt regeneration
-                # Extract the reminder from Judge's feedback
-                reminder_match = re.search(r'Remind\s+that[^\n]*', judge_feedback_responder, re.IGNORECASE)
-                reminder = reminder_match.group(0) if reminder_match else "Please focus on image quality assessment."
-
-                print(f"\nJudge detected that the Responder went off topic. Prompting Responder to regenerate Response {cycle}.")
-                logging.info(f"Judge detected Responder off-topic in Cycle {cycle}. Prompting regeneration.")
-
-                # Prompt Responder to regenerate the answer
-                responder_regenerate_prompt = (
-                    f"{reminder}\n\n"
-                    f"Based on the following question, regenerate your answer to focus specifically on the key factors affecting the quality of this image:\n\n"
-                    f"Asker's Question {cycle}:\n{asker_question}\n\n"
-                    f"Responder's Original Response:\n{responder_response}"
-                )
-                regenerated_responder_response = send_message_with_retry(
-                    responder_chat, 
-                    responder_regenerate_prompt, 
-                    role='user',
-                    inline_image=inline_image
-                )
-                interaction[f'Responder_Response_{cycle}'] = regenerated_responder_response
-                print(f"\nResponder's Regenerated Response {cycle}:\n{regenerated_responder_response}")
-                logging.info(f"Responder's Regenerated Response {cycle}: {regenerated_responder_response}")
-
-                # Re-evaluate the regenerated answer
-                judge_feedback_regenerated_responder = send_message_with_retry(
-                    judge_chat, 
-                    judge_evaluate_responder_prompt.replace(responder_response, regenerated_responder_response), 
-                    role='user',
-                    inline_image=inline_image
-                )
-                print(f"\nJudge's Feedback on Regenerated Responder's Response {cycle}:\n{judge_feedback_regenerated_responder}")
-                logging.info(f"Judge's Feedback on Regenerated Responder's Response {cycle}:\n{judge_feedback_regenerated_responder}")
-
-                if re.search(r'\boff-topic\b', judge_feedback_regenerated_responder, re.IGNORECASE):
-                    # Still off-topic after regeneration; skip to next cycle or handle accordingly
-                    print(f"\nResponder's regenerated answer is still off-topic. Skipping Cycle {cycle}.")
-                    logging.warning(f"Responder's regenerated answer still off-topic in Cycle {cycle}. Skipping.")
-                    continue  # Or implement further handling
-                else:
-                    # Regenerated answer is on-topic; proceed
-                    responder_response = regenerated_responder_response
-            else:
-                # Responder's answer is on-topic; proceed
-                logging.info(f"Responder's Response {cycle} is on-topic.")
-
-            # ------------------------------
-            # Update previous_response for next cycle
-            # ------------------------------
-            previous_response = responder_response
-
-            # Optional: Sleep to respect API rate limits
-            time.sleep(2)  # Adjust as necessary
-
-        # ------------------------------
-        # Final Assessment by Judge
-        # ------------------------------
-        final_assessment_prompt = (
-            f"Conversation History:\n"
-        )
-
-        # Compile the conversation history
-        for cycle in range(1, num_cycles + 1):
-            final_assessment_prompt += (
-                f"\nAsker's Question {cycle}:\n{interaction.get(f'Asker_Question_{cycle}', '')}\n\n"
-                f"Responder's Response {cycle}:\n{interaction.get(f'Responder_Response_{cycle}', '')}\n\n"
+            final_result_prompt = "I need a brief summary of the following assessment result which you have provided.\n\n" + final_score_response
+            final_brief_result = send_message_with_retry(
+                responder_chat,
+                final_result_prompt,
+                role='user',
+                inline_image=inline_image
             )
-        
-        final_assessment_prompt += "\nCombine with your previous chat, provide a concise summary of the image quality with the main factors that really affect the quality of this image."
+            interaction['Final_Score'] = final_score_response
+            
+            final_score_response = final_score_response.replace(image_name, "this image")
+            interaction['Final_Result'] = final_brief_result
 
-        final_score_response = send_message_with_retry(
-            responder_chat,
-            final_assessment_prompt,
-            role='user',
-            inline_image=inline_image
-        )
+            logging.info(f"Judge's Final Assessment and Score for {image_name}:\n{final_score_response}")
 
-        final_result_prompt = "I need a brief summary of the following assessment result which you have provided.\n\n" + final_score_response
-        final_brief_result = send_message_with_retry(
-            responder_chat,
-            final_result_prompt,
-            role='user',
-            inline_image=inline_image
-        )
-        interaction['Final_Score'] = final_score_response
-        interaction['Final_Result'] = final_brief_result
-        print(f"\nJudge's Final Assessment and Score for {image_name}:\n{final_score_response}")
-        logging.info(f"Judge's Final Assessment and Score for {image_name}:\n{final_score_response}")
+            results.append(interaction)
 
-        # Append the interaction to the results
-        results.append(interaction)
+        time.sleep(10)
 
-        # Optional: Sleep to respect API rate limits before processing the next image
-        time.sleep(20)  # Adjust as necessary based on API usage policies
+        df = pd.DataFrame(results)
 
-    # Convert results to a DataFrame
-    df = pd.DataFrame(results)
-
-    # Save the DataFrame to an Excel file
-    try:
-        df.to_excel(output_excel, index=False)
-        print(f"\nAssessment completed. Results saved to '{output_excel}'.")
-        logging.info(f"Assessment completed. Results saved to '{output_excel}'.")
-    except Exception as e:
-        print(f"\nFailed to save results to Excel: {e}")
-        logging.error(f"Failed to save results to Excel: {e}")
+        batch_output_excel = f"{output_excel.replace('.xlsx', '')}_batch_{batch_start}_{batch_end}.xlsx"
+        try:
+            df.to_excel(batch_output_excel, index=False)
+            logging.info(f"Batch {batch_start}-{batch_end} completed. Results saved to '{batch_output_excel}'.")
+        except Exception as e:
+            logging.error(f"Failed to save batch results to Excel: {e}")
 
 if __name__ == "__main__":
     main()
