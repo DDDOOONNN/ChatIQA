@@ -28,11 +28,6 @@ def main():
     num_cycles = args.num_cycles
 
     # Retrieve OpenAI API key from environment variables
-    openai_api_key = os.getenv('OPENAI_API_KEY')
-
-    if not openai_api_key:
-        logging.critical("API key not found. Please set the 'OPENAI_API_KEY' environment variable.")
-        raise ValueError("API key not found. Please set the 'OPENAI_API_KEY' environment variable.")
 
     # Define the ComparisonIMG path
     comparison_img_path = os.path.join(image_dir, comparison_img_name)
@@ -177,15 +172,12 @@ def main():
                 f"This image is named {comparison_img_name}, and its score is 54. "
                 f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect."
             )
-            inline_image_ComparisonIMG = {
-                "mime_type": "image/jpeg",
-                "data": comparison_img_data_uri.split(",")[1]
-            }
+
             responder_assessment_comparison = send_message_with_retry(
                 responder_chat, 
                 comparison_analysis_prompt, 
                 role='user',
-                inline_image=inline_image_ComparisonIMG
+                inline_image=comparison_img_data_uri
             )
             interaction['Responder_Assessment_ComparisonIMG'] = responder_assessment_comparison
             logging.info(f"Responder's Assessment for {comparison_img_name}: {responder_assessment_comparison}")
@@ -199,15 +191,12 @@ def main():
                 f"Identify the key aspects that determine the image's quality and provide a detailed assessment for each aspect, "
                 f"ensuring that acceptable quality images are not unduly penalized."
             )
-            inline_image = {
-                "mime_type": "image/jpeg",
-                "data": current_img_data_uri.split(",")[1]
-            }
+
             responder_assessment_current = send_message_with_retry(
                 responder_chat, 
                 current_image_prompt, 
                 role='user', 
-                inline_image=inline_image
+                inline_image=current_img_data_uri
             )
             interaction['Responder_Assessment_CurrentImage'] = responder_assessment_current
             logging.info(f"Responder's Assessment for {image_name}: {responder_assessment_current}")
@@ -223,7 +212,7 @@ def main():
                     asker_chat, 
                     asker_question_prompt, 
                     role='user',
-                    inline_image=inline_image
+                    inline_image=current_img_data_uri
                 )
                 interaction[f'Asker_Question_{cycle}'] = asker_question
                 logging.info(f"Asker's Question {cycle}: {asker_question}")
@@ -237,7 +226,7 @@ def main():
                     judge_chat, 
                     judge_evaluate_asker_prompt, 
                     role='user',
-                    inline_image=inline_image
+                    inline_image=current_img_data_uri
                 )
                 logging.info(f"Judge's Feedback on Asker's Question {cycle}:\n{judge_feedback_asker}")
 
@@ -254,7 +243,7 @@ def main():
                         asker_chat, 
                         asker_regenerate_prompt, 
                         role='user',
-                        inline_image=inline_image
+                        inline_image=current_img_data_uri
                     )
                     interaction[f'Asker_Question_{cycle}'] = regenerated_asker_question
                     logging.info(f"Asker's Regenerated Question {cycle}: {regenerated_asker_question}")
@@ -263,7 +252,7 @@ def main():
                         judge_chat, 
                         judge_evaluate_asker_prompt, 
                         role='user',
-                        inline_image=inline_image
+                        inline_image=current_img_data_uri
                     )
                     logging.info(f"Judge's Feedback on Regenerated Asker's Question {cycle}:\n{judge_feedback_regenerated_asker}")
 
@@ -280,7 +269,7 @@ def main():
                     responder_chat, 
                     asker_question, 
                     role='user',
-                    inline_image=inline_image
+                    inline_image=current_img_data_uri
                 )
                 interaction[f'Responder_Response_{cycle}'] = responder_response
                 logging.info(f"Responder's Response {cycle}: {responder_response}")
@@ -294,7 +283,7 @@ def main():
                     judge_chat, 
                     judge_evaluate_responder_prompt, 
                     role='user',
-                    inline_image=inline_image
+                    inline_image=current_img_data_uri
                 )
                 logging.info(f"Judge's Feedback on Responder's Response {cycle}:\n{judge_feedback_responder}")
 
@@ -312,7 +301,7 @@ def main():
                         responder_chat, 
                         responder_regenerate_prompt, 
                         role='user',
-                        inline_image=inline_image
+                        inline_image=current_img_data_uri
                     )
                     interaction[f'Responder_Response_{cycle}'] = regenerated_responder_response
                     logging.info(f"Responder's Regenerated Response {cycle}: {regenerated_responder_response}")
@@ -321,7 +310,7 @@ def main():
                         judge_chat, 
                         judge_evaluate_responder_prompt, 
                         role='user',
-                        inline_image=inline_image
+                        inline_image=current_img_data_uri
                     )
                     logging.info(f"Judge's Feedback on Regenerated Responder's Response {cycle}:\n{judge_feedback_regenerated_responder}")
 
@@ -350,7 +339,7 @@ def main():
                 responder_chat,
                 final_assessment_prompt,
                 role='user',
-                inline_image=inline_image
+                inline_image=current_img_data_uri
             )
 
             final_result_prompt = "I need a brief summary of the following assessment result which you have provided.\n\n" + final_score_response
@@ -358,7 +347,7 @@ def main():
                 responder_chat,
                 final_result_prompt,
                 role='user',
-                inline_image=inline_image
+                inline_image=current_img_data_uri
             )
             interaction['Final_Score'] = final_score_response
             

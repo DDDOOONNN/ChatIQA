@@ -5,13 +5,10 @@ import time
 import os
 from openai import OpenAI
 
-# Initialize OpenAI client using environment variables for security
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'sk-yx5yC8y0hIrfl19gCcB94cB11fAe4e87A35155C6De78Ce80')  # Replace with your actual API key or set as an environment variable
-OPENAI_BASE_URL = "http://localhost:3001/v1"
-
 client = OpenAI(
-    api_key=OPENAI_API_KEY, 
-    base_url=OPENAI_BASE_URL
+    base_url='https://xiaoai.plus/v1',
+    # sk-xxx替换为自己的key
+    api_key='sk-m5aPEydbaoJIY700x9dLJgaMZ07fCmsrcqSLYmRvQlhBGzIK'
 )
 
 def initialize_chat(system_message, role='system'):
@@ -55,11 +52,16 @@ def send_message(chat_session, message, role='user', inline_image=None):
             # If there's an image, include it in 'inline_data'
             user_message = {
                 "role": role,
-                "content": message,
-                "inline_data": {
-                    "mime_type": inline_image['mime_type'],
-                    "data": inline_image['data']
-                }
+                "content": [
+                    {"type": "text", "text": message},
+                    {
+                        "type": "image_url", 
+                        "image_url": {
+                        "url": inline_image,
+                       }
+                    }
+                ]
+
             }
         else:
             # Only text
@@ -73,7 +75,7 @@ def send_message(chat_session, message, role='user', inline_image=None):
         
         # Create chat completion using OpenAI's API
         chat_completion = client.chat.completions.create(
-            model="SparkDesk-v3.5", 
+            model="gpt-4o", 
             messages=chat_session
         )
         
