@@ -1,3 +1,207 @@
 2024-11-09 18:54:05,210:CRITICAL:API key not found. Please set the 'GENAI_API_KEY' environment variable.
 2024-11-09 19:09:50,234:CRITICAL:API key not found. Please set the 'GENAI_API_KEY' environment variable.
 2024-11-09 20:26:33,930:CRITICAL:API key not found. Please set the 'GENAI_API_KEY' environment variable.
+2024-11-10 19:29:18,944:INFO:Websocket connected
+2024-11-10 19:29:18,990:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(19:29:19.101) invalid role
+2024-11-10 19:29:18,990:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(19:29:19.101) invalid role
+2024-11-10 19:29:29,221:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 19:40:29,943:INFO:Websocket connected
+2024-11-10 19:40:29,988:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(19:40:30.110) invalid role
+2024-11-10 19:40:29,988:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(19:40:30.110) invalid role
+2024-11-10 19:40:40,200:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 19:57:48,550:INFO:Websocket connected
+2024-11-10 19:57:48,604:ERROR:Failed to initialize chat session: Error Code: 10004, Error: SchemaCheckError:(19:57:48.737) '$.parameter.chat.uid' unknown field; 
+2024-11-10 19:57:48,604:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10004, Error: SchemaCheckError:(19:57:48.737) '$.parameter.chat.uid' unknown field; 
+2024-11-10 19:57:58,834:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:08:38,635:INFO:Websocket connected
+2024-11-10 20:08:38,679:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:08:38.829) invalid role
+2024-11-10 20:08:38,679:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:08:38.829) invalid role
+2024-11-10 20:08:48,929:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:27:45,782:INFO:Websocket connected
+2024-11-10 20:27:45,847:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:27:46.001) invalid role
+2024-11-10 20:27:45,847:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:27:46.001) invalid role
+2024-11-10 20:27:56,075:ERROR:Failed to save batch results to Excel: [Errno 13] Permission denied: 'Prompt_BID_spark_batch_1_1.xlsx'
+2024-11-10 20:28:21,454:INFO:Websocket connected
+2024-11-10 20:28:21,506:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:28:21.674) invalid role
+2024-11-10 20:28:21,506:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:28:21.674) invalid role
+2024-11-10 20:28:31,722:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:29:05,691:INFO:Websocket connected
+2024-11-10 20:29:05,746:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:29:05.915) invalid role
+2024-11-10 20:29:05,746:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:29:05.915) invalid role
+2024-11-10 20:29:15,966:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:35:08,459:INFO:Websocket connected
+2024-11-10 20:35:08,514:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:35:08.688) invalid role
+2024-11-10 20:35:08,514:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:35:08.688) invalid role
+2024-11-10 20:35:18,727:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:39:27,859:INFO:Websocket connected
+2024-11-10 20:39:27,906:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:39:28.086) invalid role
+2024-11-10 20:39:27,906:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:39:28.086) invalid role
+2024-11-10 20:39:38,116:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:40:36,841:INFO:Initializing chat session with Spark AI...
+2024-11-10 20:40:37,024:INFO:Websocket connected
+2024-11-10 20:40:37,077:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:40:37.254) invalid role
+2024-11-10 20:40:37,077:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:40:37.254) invalid role
+2024-11-10 20:40:47,328:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 20:43:03,610:INFO:Initializing chat session with Spark AI...
+2024-11-10 20:43:03,812:INFO:Websocket connected
+2024-11-10 20:43:03,879:ERROR:Failed to initialize chat session: Error Code: 10003, Error: ClientMsgError:(20:43:04.055) invalid role
+2024-11-10 20:43:03,879:ERROR:Error initializing chat sessions for image DatabaseImage0001.jpg: Error Code: 10003, Error: ClientMsgError:(20:43:04.055) invalid role
+2024-11-10 20:43:14,101:INFO:Batch 1-1 completed. Results saved to 'Prompt_BID_spark_batch_1_1.xlsx'.
+2024-11-10 21:18:36,096:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:36,096:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:36,096:INFO:Retrying in 5 seconds...
+2024-11-10 21:18:42,318:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:42,318:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:42,318:INFO:Retrying in 5 seconds...
+2024-11-10 21:18:48,501:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:48,501:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:48,501:ERROR:All retry attempts failed.
+2024-11-10 21:18:48,501:INFO:Responder's Assessment for ComparisonIMG2.jpg: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:49,814:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:49,814:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:49,814:INFO:Retrying in 5 seconds...
+2024-11-10 21:18:55,999:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:55,999:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:18:55,999:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:02,246:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:02,246:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:02,246:ERROR:All retry attempts failed.
+2024-11-10 21:19:02,246:INFO:Responder's Assessment for DatabaseImage0001.jpg: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:03,472:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:03,472:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:03,472:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:09,649:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:09,649:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:09,649:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:15,934:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:15,934:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:15,934:ERROR:All retry attempts failed.
+2024-11-10 21:19:15,934:INFO:Asker's Question 1: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:17,255:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:17,255:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:17,255:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:22,948:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:22,948:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:22,948:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:28,626:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:28,626:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:28,626:ERROR:All retry attempts failed.
+2024-11-10 21:19:28,626:INFO:Judge's Feedback on Asker's Question 1:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:28,626:INFO:Asker's Question 1 is on-topic.
+2024-11-10 21:19:29,287:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:29,287:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:29,287:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:34,923:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:34,923:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:34,923:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:40,592:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:40,592:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:40,592:ERROR:All retry attempts failed.
+2024-11-10 21:19:40,592:INFO:Responder's Response 1: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:41,292:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:41,292:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:41,292:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:46,989:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:46,989:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:46,989:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:52,690:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:52,690:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:52,690:ERROR:All retry attempts failed.
+2024-11-10 21:19:52,690:INFO:Judge's Feedback on Responder's Response 1:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:52,690:INFO:Responder's Response 1 is on-topic.
+2024-11-10 21:19:53,432:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:53,433:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:53,433:INFO:Retrying in 5 seconds...
+2024-11-10 21:19:59,144:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:59,144:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:19:59,144:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:04,840:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:04,840:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:04,840:ERROR:All retry attempts failed.
+2024-11-10 21:20:04,840:INFO:Asker's Question 2: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:05,540:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:05,540:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:05,540:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:11,213:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:11,213:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:11,213:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:16,819:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:16,819:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:16,819:ERROR:All retry attempts failed.
+2024-11-10 21:20:16,819:INFO:Judge's Feedback on Asker's Question 2:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:16,819:INFO:Asker's Question 2 is on-topic.
+2024-11-10 21:20:17,517:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:17,517:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:17,517:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:23,223:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:23,223:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:23,223:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:28,911:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:28,911:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:28,911:ERROR:All retry attempts failed.
+2024-11-10 21:20:28,911:INFO:Responder's Response 2: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:29,658:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:29,658:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:29,658:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:35,352:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:35,352:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:35,352:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:41,050:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:41,050:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:41,050:ERROR:All retry attempts failed.
+2024-11-10 21:20:41,050:INFO:Judge's Feedback on Responder's Response 2:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:41,050:INFO:Responder's Response 2 is on-topic.
+2024-11-10 21:20:41,733:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:41,733:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:41,733:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:47,435:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:47,435:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:47,435:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:53,097:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:53,097:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:53,097:ERROR:All retry attempts failed.
+2024-11-10 21:20:53,097:INFO:Asker's Question 3: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:53,774:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:53,774:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:53,774:INFO:Retrying in 5 seconds...
+2024-11-10 21:20:59,471:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:59,471:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:20:59,471:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:05,123:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:05,123:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:05,123:ERROR:All retry attempts failed.
+2024-11-10 21:21:05,123:INFO:Judge's Feedback on Asker's Question 3:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:05,123:INFO:Asker's Question 3 is on-topic.
+2024-11-10 21:21:05,810:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:05,810:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:05,810:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:11,465:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:11,465:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:11,465:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:17,141:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:17,141:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:17,141:ERROR:All retry attempts failed.
+2024-11-10 21:21:17,141:INFO:Responder's Response 3: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:17,813:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:17,813:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:17,813:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:23,418:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:23,418:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:23,418:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:29,065:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:29,065:WARNING:Attempt 3 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:29,065:ERROR:All retry attempts failed.
+2024-11-10 21:21:29,065:INFO:Judge's Feedback on Responder's Response 3:
+Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:29,065:INFO:Responder's Response 3 is on-topic.
+2024-11-10 21:21:29,750:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:29,750:WARNING:Attempt 1 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:29,750:INFO:Retrying in 5 seconds...
+2024-11-10 21:21:35,437:ERROR:Error sending message: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:35,437:WARNING:Attempt 2 failed with error: Error: 400 POST https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?%24alt=json%3Benum-encoding%3Dint: User location is not supported for the API use.
+2024-11-10 21:21:35,437:INFO:Retrying in 5 seconds...
