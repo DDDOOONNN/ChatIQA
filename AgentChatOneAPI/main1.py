@@ -45,27 +45,26 @@ def main():
 
     # Define system messages for Responder, Asker, and Judge
     responder_system_message = (
-        "You are an Image Analysis Expert specializing in evaluating the quality of images based on their specific types, such as portraits and landscapes."
-        " Your task is to identify, analyze, and assess the key factors that genuinely impact the quality of each image."
-        " For example, in portrait images, prioritize factors like the clarity of the subject and background aesthetics, while in landscape images, focus on the overall composition and detail emphasis."
-        " Avoid discussing photography techniques, image optimization processes, or any unrelated technical aspects."
-        " Provide comprehensive, objective, and type-specific evaluations that highlight the most significant quality determinants for each image."
-    )
+    "You are an Image Analysis Expert specializing in evaluating the quality of images based on their specific types, such as portraits and landscapes."
+    " Your task is to identify, analyze, and assess the key factors that determine the quality of the image, such as sharpness, color accuracy, contrast, and composition."
+    " Avoid discussing photography techniques, camera settings, image optimization processes, or any unrelated technical aspects."
+    " Your analysis should be focused solely on the quality of the image as it relates to its visual features, aesthetics, and how well the image represents its subject matter."
+    " Provide comprehensive and objective evaluations for each image, considering its type and characteristics, but do not stray into topics outside of image quality assessment."
+)
 
     asker_system_message = (
-        "You are an Inquisitive Analyst focused on understanding the true factors that affect the quality of different types of images, such as portraits and landscapes."
-        " Your task is to ask insightful and targeted questions to the Image Analysis Expert to uncover the key quality determinants specific to each image type being evaluated."
-        " For instance, inquire about aspects like subject focus in portraits or composition intricacies in landscapes."
-        " Ensure that your questions remain relevant to assessing image quality and avoid straying into areas like photography techniques or image processing methods."
-    )
+    "You are an Inquisitive Analyst tasked with probing and uncovering the key factors that affect the quality of different types of images, such as portraits and landscapes."
+    " Focus your questions on aspects like clarity, subject focus, composition, and visual appeal, and avoid inquiries about camera settings, shooting techniques, or any image processing methods."
+    " Ensure your questions remain relevant to the image's quality evaluation, specifically addressing the visual factors that define the image's impact and effectiveness."
+    " Your questions should aim to help the Image Analysis Expert dive deeper into the specific quality factors for the image, without deviating into irrelevant topics."
+)
 
     judge_system_message = (
-        "You are a Conversation Moderator. Your task is to monitor the dialogue between the Inquisitive Analyst and the Image Analysis Expert."
-        " Individually evaluate the Inquisitive Analyst's questions and the Image Analysis Expert's answers to ensure they strictly relate to assessing image quality based on this image's quality factors."
-        " If a question from the Inquisitive Analyst is off-topic, politely remind them to focus on image quality assessment and prompt them to regenerate the question."
-        " Similarly, if an answer from the Image Analysis Expert is off-topic, politely remind them to focus on image quality assessment and prompt them to regenerate the answer."
-        " Your reminder should start with \"Remind that:\""
-    )
+    "You are a Conversation Moderator. Your task is to monitor the dialogue between the Inquisitive Analyst and the Image Analysis Expert."
+    " Ensure that all questions from the Inquisitive Analyst and answers from the Image Analysis Expert are strictly focused on assessing the quality of the image in terms of its visual features, aesthetics, and overall impact."
+    " If any question or response strays into topics like camera settings, photography techniques, or image optimization, remind the participant to focus on image quality assessment."
+    " Your reminder should start with 'Remind that:' and should guide the conversation back to image quality without discussing technical aspects unrelated to visual assessment."
+)
 
     # Process images in batches
     for batch_start in range(1, total_images + 1, 50):
@@ -226,7 +225,7 @@ def main():
                     judge_chat, 
                     judge_evaluate_asker_prompt, 
                     role='user',
-                    inline_image=current_img_data_uri
+                    inline_image=None
                 )
                 logging.info(f"Judge's Feedback on Asker's Question {cycle}:\n{judge_feedback_asker}")
 
@@ -243,7 +242,7 @@ def main():
                         asker_chat, 
                         asker_regenerate_prompt, 
                         role='user',
-                        inline_image=current_img_data_uri
+                        inline_image=None
                     )
                     interaction[f'Asker_Question_{cycle}'] = regenerated_asker_question
                     logging.info(f"Asker's Regenerated Question {cycle}: {regenerated_asker_question}")
@@ -252,7 +251,7 @@ def main():
                         judge_chat, 
                         judge_evaluate_asker_prompt, 
                         role='user',
-                        inline_image=current_img_data_uri
+                        inline_image=None
                     )
                     logging.info(f"Judge's Feedback on Regenerated Asker's Question {cycle}:\n{judge_feedback_regenerated_asker}")
 
@@ -263,13 +262,13 @@ def main():
                 else:
                     logging.info(f"Asker's Question {cycle} is on-topic.")
 
-                asker_question += f"\n\nAfter answering the question, please state what you now think are the key factors that really affect the quality of this image {image_name}, and give a brief summary."
+                asker_question += f"\n\nFirst, answer the above question. After answering the question, please state what you now think are the key factors that really affect the quality of this image {image_name}, and give a brief summary."
 
                 responder_response = send_message_with_retry(
                     responder_chat, 
                     asker_question, 
                     role='user',
-                    inline_image=current_img_data_uri
+                    inline_image=None
                 )
                 interaction[f'Responder_Response_{cycle}'] = responder_response
                 logging.info(f"Responder's Response {cycle}: {responder_response}")
@@ -283,7 +282,7 @@ def main():
                     judge_chat, 
                     judge_evaluate_responder_prompt, 
                     role='user',
-                    inline_image=current_img_data_uri
+                    inline_image=None
                 )
                 logging.info(f"Judge's Feedback on Responder's Response {cycle}:\n{judge_feedback_responder}")
 
@@ -301,7 +300,7 @@ def main():
                         responder_chat, 
                         responder_regenerate_prompt, 
                         role='user',
-                        inline_image=current_img_data_uri
+                        inline_image=None
                     )
                     interaction[f'Responder_Response_{cycle}'] = regenerated_responder_response
                     logging.info(f"Responder's Regenerated Response {cycle}: {regenerated_responder_response}")
@@ -310,7 +309,7 @@ def main():
                         judge_chat, 
                         judge_evaluate_responder_prompt, 
                         role='user',
-                        inline_image=current_img_data_uri
+                        inline_image=None
                     )
                     logging.info(f"Judge's Feedback on Regenerated Responder's Response {cycle}:\n{judge_feedback_regenerated_responder}")
 

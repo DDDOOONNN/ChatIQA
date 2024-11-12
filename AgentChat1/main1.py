@@ -30,7 +30,7 @@ def main():
     num_cycles = args.num_cycles
 
     # Retrieve API key from environment variables
-    api_key = os.getenv('GENAI_API_KEY')
+    api_key = 'AIzaSyC-DUwcu0XTsd-jEafCYEmlqscBsjV8DSI'
 
     if not api_key:
         logging.critical("API key not found. Please set the 'GENAI_API_KEY' environment variable.")

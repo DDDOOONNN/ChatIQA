@@ -8,9 +8,9 @@ from openai import OpenAI
 client = OpenAI(
     base_url='https://xiaoai.plus/v1',
     # sk-xxx替换为自己的key
-    api_key='sk-m5aPEydbaoJIY700x9dLJgaMZ07fCmsrcqSLYmRvQlhBGzIK'
+    api_key='sk-Ki2REpLDi2cNIPhfG8E1Qb0vQtXRONNhtXbE9dgsfcPV9qT9'
 )
-
+model = "gpt-4o-mini"
 def initialize_chat(system_message, role='system'):
     """
     Initialize a chat session with the given system message.
@@ -75,7 +75,7 @@ def send_message(chat_session, message, role='user', inline_image=None):
         
         # Create chat completion using OpenAI's API
         chat_completion = client.chat.completions.create(
-            model="gpt-4o", 
+            model=model, 
             messages=chat_session
         )
         
